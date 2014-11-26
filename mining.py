@@ -47,7 +47,7 @@ def read_stock_data(stock_name, stock_file_name):
     return
 
 def six_best_months():
-    if monthly_averages = empty - look into whether list is empty
+    if monthly_averages = # empty - look into whether list is empty
         return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
     #if...
 
@@ -57,7 +57,7 @@ def six_best_months():
 #
 
 def six_worst_months():
-    if monthly_averages = empty
+    if monthly_averages = # empty look into determing whether list is empty
         return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
     #if...
 
