@@ -46,6 +46,19 @@ def read_stock_data(stock_name, stock_file_name):
 
     return
 
+def getKey(item):
+    return item [1]
+
+    for sales_average in stock.monthly_averages.values():
+list_of_averages.append(sales_average)
+list_of_averages.sort(reverse=sort_order)
+for this_average in list_of_averages[:6]:
+for year_month, sales_average in stock.monthly_averages.items():
+if this_average == sales_average:
+results.append((year_month, sales_average))
+
+
+
 def six_best_months():
     if monthly_averages = # empty - look into whether list is empty
         return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
