@@ -39,10 +39,10 @@ def read_stock_data(stock_name, stock_file_name):
     average and corresponding date (mm-yyyy)
     """
     daily_stock = read_json_from_file(stock_file_name)
-    monthly_averages.sort(key=operator.itemgetter(0),reverse=False) # sorts list in ascending order by formatted_date
-    average_price_numerator = 0   #resets numerator value to 0 when previous month value has been calculated
-    average_price_denominator = 0  #resets denominator value to 0 when previous month value has been calculated
-    del monthly_averages[:]    # monthly_averages list will be cleared to allow testing of different files
+    monthly_averages.sort(key=operator.itemgetter(0),reverse=False)  # sorts list in ascending order by formatted_date
+    average_price_numerator = 0   # resets numerator value to 0 when previous month value has been calculated
+    average_price_denominator = 0  # resets denominator value to 0 when previous month value has been calculated
+    del monthly_averages[:]  # monthly_averages list will be cleared to allow testing of different files
     comparison_month = ""
     for ele in daily_stock:
         current_month = ele.get("Date")[0:7]
@@ -53,7 +53,7 @@ def read_stock_data(stock_name, stock_file_name):
             average_price_denominator += (ele.get("Volume"))
         else:
             monthly_average_price = average_price_numerator / average_price_denominator
-            formatted_date = comparison_month.replace("-","/")  #formats date to match format in tests
+            formatted_date = comparison_month.replace("-","/")  # formats date to match format in tests
             monthly_averages.append((formatted_date, round(monthly_average_price,2)))
             comparison_month = current_month
             average_price_numerator = (ele.get("Volume") * ele.get("Close"))
@@ -61,8 +61,8 @@ def read_stock_data(stock_name, stock_file_name):
 
     # final month calculation
     monthly_average_price = average_price_numerator / average_price_denominator
-    formatted_date = comparison_month.replace("-","/")
-    monthly_averages.append((formatted_date, round(monthly_average_price,2)))
+    formatted_date = comparison_month.replace("-", "/")
+    monthly_averages.append((formatted_date, round(monthly_average_price, 2)))
 
     return monthly_averages
 
@@ -71,7 +71,7 @@ def six_best_months():
     """
     Finds the best performing stocks, calculated by the highest monthly average
     of closing daily stock prices by volume
-    :param stock_file_name: monthly_averages as calculated above
+    :param: monthly averages as calculated above, six highest values are chosen
     :return: top six months where the stocks had the highest closing monthly average
     """
     if not monthly_averages:
@@ -82,16 +82,16 @@ def six_best_months():
 
 def six_worst_months():
     """
-    Finds the worst performing stocks, calculated by the highest monthly average
+    Finds the worst performing stocks, calculated by the lowest monthly average
     of closing daily stock prices by volume
-    :param stock_file_name: monthly_averages as calculated above
-    :return: top six months where the stocks had the highest closing monthly average
+    :param: monthly_averages as calculated above, six lowest monthly values chosen
+    :return: six months where the stocks had the lowest closing monthly average
     """
     if not monthly_averages:
         return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
-    monthly_averages.sort(key=operator.itemgetter(1),reverse=False)
+    monthly_averages.sort(key=operator.itemgetter(1), reverse=False)
     if len(monthly_averages) < 6:
-        return ("Data Error")
+        return "Data Error"
     return monthly_averages[:6]
 
 
