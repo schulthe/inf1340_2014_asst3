@@ -14,11 +14,30 @@ __status__ = "Prototype"
 import json
 import operator
 
+"""
+Monthly averages of stock data will be found
+from the imported json files
+These functions found within hope to mine
+the data of two stocks outlined and find
+their average prices (using the closing price)
+through (V1*C1)+...+(Vn*Cn)/(V1+...+Vn)
+where V = volume and C = closing price
+and then find the highest performing months
+and the worst performing months
+"""
+
 stock_data = []
 monthly_averages = []
 
 
 def read_stock_data(stock_name, stock_file_name):
+    """
+    Decides the monthly averages calculation for the stocks
+    :param stock_file_name: The name of a JSON formatted file that
+    contains the stock data
+    :return: Dictionary with calculated data of monthly stock
+    average and corresponding date (mm-yyyy)
+    """
     daily_stock = read_json_from_file(stock_file_name)
     monthly_averages.sort(key=operator.itemgetter(0),reverse=False)
     average_price_numerator = 0
@@ -49,6 +68,12 @@ def read_stock_data(stock_name, stock_file_name):
 
 
 def six_best_months():
+    """
+    Finds the best performing stocks, calculated by the highest monthly average
+    of closing daily stock prices by volume
+    :param stock_file_name: monthly_averages as calculated above
+    :return: top six months where the stocks had the highest closing monthly average
+    """
     if not monthly_averages:
         return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
     monthly_averages.sort(key=operator.itemgetter(1),reverse=True)
@@ -56,6 +81,12 @@ def six_best_months():
 
 
 def six_worst_months():
+    """
+    Finds the worst performing stocks, calculated by the highest monthly average
+    of closing daily stock prices by volume
+    :param stock_file_name: monthly_averages as calculated above
+    :return: top six months where the stocks had the highest closing monthly average
+    """
     if not monthly_averages:
         return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
     monthly_averages.sort(key=operator.itemgetter(1),reverse=False)
