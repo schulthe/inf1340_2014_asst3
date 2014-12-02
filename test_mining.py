@@ -13,9 +13,20 @@ __status__ = "Prototype"
 # imports one per line
 from mining import *
 
-
+def test_filename():
+    """
+    Raises FileNotFound error
+    """
+    with pytest.raises(FileNotFoundError):
+        read_stock_data("")
 
 def test_goog():
+    """
+	for GOOG stock,
+	assert:
+	six best months
+	six worst months
+	"""
     read_stock_data("GOOG", "data/GOOG.json")
     assert six_best_months() == [('2007/12', 693.76), ('2007/11', 676.55), ('2007/10', 637.38), ('2008/01', 599.42),
                                  ('2008/05', 576.29), ('2008/06', 555.34)]
@@ -24,6 +35,12 @@ def test_goog():
 
 
 def test_TSE():
+    """
+	for TSE-SO stock,
+	assert:
+	six best months
+	six worst months
+	"""
     read_stock_data("TSE", "data/TSE-SO.json")
     assert six_best_months() == [('2007/12', 20.98), ('2007/11', 20.89), ('2013/05', 19.96), ('2013/06', 19.94),
                                 ('2013/04', 19.65), ('2007/10', 19.11)]
