@@ -17,14 +17,6 @@ from mining import *
 """ Will test the functions created in mining.py """
 
 
-def test_filename():
-    """
-    Raises FileNotFound error
-    """
-    with pytest.raises(FileNotFoundError):
-        read_stock_data("")
-
-
 def test_goog():
     """
     for GOOG stock,
