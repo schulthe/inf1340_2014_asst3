@@ -39,27 +39,27 @@ def read_stock_data(stock_name, stock_file_name):
     average and corresponding date (mm-yyyy)
     """
     daily_stock = read_json_from_file(stock_file_name)
-    monthly_averages.sort(key=operator.itemgetter(0),reverse=False)
-    average_price_numerator = 0
-    average_price_denominator = 0
-    del monthly_averages[:]
+    monthly_averages.sort(key=operator.itemgetter(0),reverse=False) # sorts list in ascending order by formatted_date
+    average_price_numerator = 0   #resets numerator value to 0 when previous month value has been calculated
+    average_price_denominator = 0  #resets denominator value to 0 when previous month value has been calculated
+    del monthly_averages[:]    # monthly_averages list will be cleared to allow testing of different files
     comparison_month = ""
     for ele in daily_stock:
         current_month = ele.get("Date")[0:7]
-        if comparison_month == "":
+        if comparison_month == "":    # determines whether the next dictionary is of the current month or previous
             comparison_month = current_month
         if current_month == comparison_month:
             average_price_numerator += (ele.get("Volume") * ele.get("Close"))
             average_price_denominator += (ele.get("Volume"))
         else:
             monthly_average_price = average_price_numerator / average_price_denominator
-            formatted_date = comparison_month.replace("-","/")
+            formatted_date = comparison_month.replace("-","/")  #formats date to match format in tests
             monthly_averages.append((formatted_date, round(monthly_average_price,2)))
             comparison_month = current_month
             average_price_numerator = (ele.get("Volume") * ele.get("Close"))
             average_price_denominator = (ele.get("Volume"))
 
-    #final month calculation
+    # final month calculation
     monthly_average_price = average_price_numerator / average_price_denominator
     formatted_date = comparison_month.replace("-","/")
     monthly_averages.append((formatted_date, round(monthly_average_price,2)))
